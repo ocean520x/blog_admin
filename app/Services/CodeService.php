@@ -9,7 +9,7 @@ class CodeService
     public function send($phone, $templateCode)
     {
         $code = $this->code($phone);
-        if (app()->environment('local')) return 'local-' . $code;
+        if (app()->environment('local')) return $code;
         app(AliYunService::class)->sms($phone, $templateCode, ['code' => $code]);
         return $code;
     }
@@ -17,7 +17,8 @@ class CodeService
     protected function code($phone)
     {
         if (Cache::get($phone)) abort(403, '请稍后再试');
-        Cache::put($phone, $code = mt_rand(100000, 999999), 30);
+        $code = (string)mt_rand(100000, 999999);
+        Cache::put($phone, $code, config('my.code.out_time'));
         return $code;
     }
 }

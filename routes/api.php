@@ -12,3 +12,4 @@ Route::get('/user', function (Request $request) {
 Route::post('send/code', [CodeControl::class, 'send']);
 
 Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/register', [AuthController::class, 'register']);

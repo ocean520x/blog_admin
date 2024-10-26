@@ -13,8 +13,9 @@ class CodeControl extends Controller
     function send(Request $request)
     {
         Validator::make($request->input(), [
-            'phone' => ['required', new PhoneRule()] 
+            'phone' => ['required', new PhoneRule()]
         ])->validate();
-        return app(CodeService::class)->send($request->input('phone'), 'SMS_468225424');
+        $code =  app(CodeService::class)->send($request->input('phone'), 'SMS_468225424');
+        return $this->success('发送成功', ['code' => $code]);
     }
 }
