@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\AliYunService;
+use App\Services\CodeService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(CodeService::class, new CodeService());
+        $this->app->instance(AliYunService::class, new AliYunService());
     }
 
     /**
