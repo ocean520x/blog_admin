@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Rules\PhoneRule;
-use App\Services\AliYunService;
 use App\Services\CodeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

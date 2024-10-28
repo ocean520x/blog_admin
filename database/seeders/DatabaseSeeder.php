@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $user2 = User::findOrFail(2);
         $user2->name = '欧顺';
         $user2->phone = '13000000002';
+        $user2->password = Hash::make('123456');
         $user2->save();
 
         $this->call([CategorySeeder::class]);

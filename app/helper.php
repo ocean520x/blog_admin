@@ -1,7 +1,10 @@
 <?php
-if (!function_exists('gogo')) {
-    function gogo()
+
+use Illuminate\Support\Facades\Auth;
+
+if (!function_exists('isSuperAdmin')) {
+    function isSuperAdmin(): bool
     {
-        return 'gogo';
+        return Auth::user() && Auth::id() == 1;
     }
 }
