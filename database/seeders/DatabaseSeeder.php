@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,9 +25,14 @@ class DatabaseSeeder extends Seeder
         $user2->name = '欧顺';
         $user2->phone = '13000000002';
         $user2->save();
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+
+        $this->call([CategorySeeder::class]);
+
+        $cat_arr = ['聚焦热点', '财经信息', '娱乐八卦', '体育天地', '母婴空间', '文化历史', '图书走廊', '地产天地', '汽车世界', '热门电影', '网红明星', '饮食男女'];
+        foreach ($cat_arr as $k => $v) {
+            $cat = Category::findOrFail($k + 1);
+            $cat->title = $v;
+            $cat->save();
+        }
     }
 }
