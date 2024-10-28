@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,22 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'max:255', Rule::unique('categories')->ignore($this->route('category')->id)],
+            'icon' => ['nullable', 'max:255']
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'title' => '帖子大类名称'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => '帖子大类必须填写'
         ];
     }
 }

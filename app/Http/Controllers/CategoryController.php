@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -28,6 +29,7 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request, Category $category)
     {
+        Gate::authorize('create', $category);
         $category->fill($request->input())->save();
         return $this->success('帖子大类新增成功!', new CategoryResource($category->refresh()));
     }
@@ -45,7 +47,9 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        Gate::authorize('update', $category);
+        $category->fill($request->input())->save();
+        return $this->success('帖子大类修改成功!', new CategoryResource($category));
     }
 
     /**
