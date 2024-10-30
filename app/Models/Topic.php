@@ -11,6 +11,27 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic query()
+ * @property int $id
+ * @property string $title 帖子标题
+ * @property string $content 帖子内容
+ * @property int $user_id
+ * @property int $category_id
+ * @property string $is_hot 是否热门
+ * @property int $sort 帖子排序
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Category $category
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\TopicFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereIsHot($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereUserId($value)
  * @mixin \Eloquent
  */
 class Topic extends Model
@@ -27,5 +48,10 @@ class Topic extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function topicUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
 }
