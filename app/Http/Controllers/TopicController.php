@@ -6,7 +6,9 @@ use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResource;
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TopicController extends Controller
 {
@@ -47,7 +49,11 @@ class TopicController extends Controller
      */
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
-        //
+        // $user = User::
+        // echo 'topic.id'.$topic->user_id.'<br/>'.'user.id'.new User()->id;
+        Gate::authorize('update', $topic);
+        $topic->fill($request->input())->save();
+        return $this->success('帖子修改成功!', new TopicResource($topic->load(['user', 'category'])));
     }
 
     /**
