@@ -17,7 +17,7 @@ class Topic extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'sort', 'is_hot'];
+    protected $fillable = ['title', 'content', 'sort', 'is_hot', 'category_id'];
 
     public function user()
     {

@@ -6,9 +6,14 @@ use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResource;
 use App\Models\Topic;
+use Illuminate\Support\Facades\Auth;
 
 class TopicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:sanctum'])->except(['index', 'show']);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -21,9 +26,12 @@ class TopicController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTopicRequest $request)
+    public function store(StoreTopicRequest $request, Topic $topic)
     {
-        //
+        $topic->fill($request->input());
+        $topic->user_id = Auth::id();
+        $topic->save();
+        return $this->success(data: new TopicResource($topic->load(['user', 'category'])));
     }
 
     /**
