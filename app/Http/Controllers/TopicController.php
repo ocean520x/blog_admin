@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
+use App\Http\Resources\TopicResource;
 use App\Models\Topic;
 
 class TopicController extends Controller
@@ -13,15 +14,8 @@ class TopicController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $topics = Topic::orderBy('sort')->with(['user', 'category'])->paginate(20);
+        return TopicResource::collection($topics);
     }
 
     /**
@@ -37,15 +31,7 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Topic $topic)
-    {
-        //
+        return $this->success(data: new TopicResource($topic->load(['user', 'category'])));
     }
 
     /**
