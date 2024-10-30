@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = CategoryResource::collection(Category::all());
+        $categories = CategoryResource::collection(Category::orderBy('sort')->get());
         return $this->success(data: $categories);
     }
 
@@ -57,6 +57,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        Gate::authorize('delete', $category);
+        $category->delete();
+        return $this->success('帖子大类删除成功!');
     }
 }

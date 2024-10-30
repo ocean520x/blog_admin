@@ -24,7 +24,8 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'title' => ['required', 'max:255', Rule::unique('categories')->ignore($this->route('category')->id)],
-            'icon' => ['nullable', 'max:255']
+            'icon' => ['nullable', 'max:255'],
+            'sort' => ['numeric']
         ];
     }
 

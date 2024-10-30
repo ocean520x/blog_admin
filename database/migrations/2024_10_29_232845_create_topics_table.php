@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('topics', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->comment('分类标题');
-            $table->string('icon')->default('WaterfallsH')->comment('图标');
-            $table->unsignedInteger('sort')->default(100)->comment('帖子大类排序');
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('topics');
     }
 };

@@ -24,7 +24,8 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'title' => ['required', 'max:255', Rule::unique('categories')],
-            'icon' => ['nullable', 'max:255']
+            'icon' => ['nullable', 'max:255'],
+            'sort' => ['numeric']
         ];
     }
     public function attributes()
