@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CodeControl;
@@ -15,6 +16,6 @@ Route::post('send/code', [CodeControl::class, 'send']);
 
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/register', [AuthController::class, 'register']);
-
+Route::post('upload/image', [AttachmentController::class, 'image']);
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('topic', TopicController::class);

@@ -49,8 +49,6 @@ class TopicController extends Controller
      */
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
-        // $user = User::
-        // echo 'topic.id'.$topic->user_id.'<br/>'.'user.id'.new User()->id;
         Gate::authorize('update', $topic);
         $topic->fill($request->input())->save();
         return $this->success('帖子修改成功!', new TopicResource($topic->load(['user', 'category'])));
@@ -61,6 +59,8 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        //
+        Gate::authorize('delete', $topic);
+        $topic->delete();
+        return $this->success('帖子删除成功!');
     }
 }

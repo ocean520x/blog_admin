@@ -12,7 +12,8 @@
         "alibabacloud/dysmsapi": "^1.8",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "spatie/image": "^3.7"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.2",
