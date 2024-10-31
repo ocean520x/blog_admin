@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name 昵称
@@ -93,5 +94,10 @@ class User extends Authenticatable
     public function userTopics()
     {
         return $this->belongsToMany(Topic::class, 'favorites')->withTimestamps();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

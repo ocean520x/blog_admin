@@ -4,6 +4,7 @@ use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CodeControl;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\TopicController;
 use Illuminate\Http\Request;
@@ -21,3 +22,6 @@ Route::post('upload/image', [AttachmentController::class, 'image']);
 Route::get('favorite/toggle/{topic}', [FavoriteController::class, 'toggle']);
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('topic', TopicController::class);
+
+Route::post('comment/{topic}', [CommentController::class, 'store']);
+Route::delete('comment/{comment}', [CommentController::class, 'destroy']);
