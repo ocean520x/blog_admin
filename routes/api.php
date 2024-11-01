@@ -23,5 +23,7 @@ Route::get('favorite/toggle/{topic}', [FavoriteController::class, 'toggle']);
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('topic', TopicController::class);
 
+Route::get('list/comment/{topic}', [CommentController::class, 'index']);
 Route::post('comment/{topic}', [CommentController::class, 'store']);
+Route::post('reply/comment/{topic}/{comment}', [CommentController::class, 'replyComment']);
 Route::delete('comment/{comment}', [CommentController::class, 'destroy']);
