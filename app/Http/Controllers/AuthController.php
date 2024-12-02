@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Rules\CheckCodeRule;
 use App\Rules\PhoneRule;
@@ -24,6 +25,7 @@ class AuthController extends Controller
         $user = User::where('phone', $request->input('phone'))->first();
         if ($user && Hash::check($request->input('password'), $user->password)) {
             return $this->success('登录成功', [
+                'user' => new UserResource($user),
                 'token' => $user->createToken('api_token')->plainTextToken
             ]);
         }
@@ -46,6 +48,6 @@ class AuthController extends Controller
         $user->password = Hash::make($request->input('password'));
         $user->save();
 
-        return $this->success('注册成功', ['token' => $user->createToken('auth')->plainTextToken]);
+        return $this->success('注册成功', ['user' => new UserResource($user->refresh()),'token' => $user->createToken('auth')->plainTextToken]);
     }
 }
