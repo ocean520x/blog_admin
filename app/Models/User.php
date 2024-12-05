@@ -86,6 +86,8 @@ class User extends Authenticatable
         ];
     }
 
+    protected $appends = ['is_super_admin'];
+
     public function topics()
     {
         return $this->hasMany(Topic::class);
@@ -99,5 +101,10 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function getIsSuperAdminAttribute()
+    {
+        return $this->id == 1 ? 'yes' : 'no';
     }
 }
