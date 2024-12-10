@@ -7,6 +7,7 @@ use App\Http\Controllers\CodeControl;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,4 @@ Route::get('list/comment/{topic}', [CommentController::class, 'index']);
 Route::post('comment/{topic}', [CommentController::class, 'store']);
 Route::post('reply/comment/{topic}/{comment}', [CommentController::class, 'replyComment']);
 Route::delete('comment/{comment}', [CommentController::class, 'destroy']);
+Route::post('logout', [UserController::class, 'logout']);

@@ -19,7 +19,10 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         Validator::make($request->input(), [
-            'phone' => ['required', new PhoneRule(), Rule::exists('users')]
+            'phone' => ['required', new PhoneRule(), Rule::exists('users')],
+            'captcha_code' => 'required|captcha_api:' . request('captcha_key') . ',math'
+        ], [
+            'captcha_code.captcha_api' => '验证码输入错误'
         ])->validate();
 
         $user = User::where('phone', $request->input('phone'))->first();
@@ -48,6 +51,6 @@ class AuthController extends Controller
         $user->password = Hash::make($request->input('password'));
         $user->save();
 
-        return $this->success('注册成功', ['user' => new UserResource($user->refresh()),'token' => $user->createToken('auth')->plainTextToken]);
+        return $this->success('注册成功', ['user' => new UserResource($user->refresh()), 'token' => $user->createToken('auth')->plainTextToken]);
     }
 }
