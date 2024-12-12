@@ -49,9 +49,6 @@ class AuthController extends Controller
         $user->name = 'Blog_' . Str::lower(Str::random(4));
         $user->password = Hash::make($request->input('password'));
         $user->save();
-        // 'token' => $user->createToken('auth')->plainTextToken
-        // $token = $user->createToken('auth')->plainTextToken;
-        // echo $token;
-        return $this->success('注册成功', ['user' => new UserResource($user->refresh())]);
+        return $this->success('注册成功', ['user' => new UserResource($user->refresh()), 'token' => $user->createToken('auth')->plainTextToken]);
     }
 }
