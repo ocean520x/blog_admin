@@ -16,7 +16,7 @@ class CheckCodeRule implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $code = Cache::get(request('phone'));
-        if ($value !== $code) {
+        if ($value != $code) {
             $fail('验证码不正确');
         }
     }

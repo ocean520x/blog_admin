@@ -41,16 +41,17 @@ class AuthController extends Controller
     {
         Validator::make($request->input(), [
             'phone' => ['required', new PhoneRule(), Rule::unique('users')],
-            'email' => ['required', 'email', Rule::unique('users')],
+            'email' => ['email', Rule::unique('users')],
             'password' => ['required', 'confirmed', 'min:6'],
             'code' => ['required', new CheckCodeRule()]
         ])->validate();
-
         $user->fill($request->input());
         $user->name = 'Blog_' . Str::lower(Str::random(4));
         $user->password = Hash::make($request->input('password'));
         $user->save();
-
-        return $this->success('注册成功', ['user' => new UserResource($user->refresh()), 'token' => $user->createToken('auth')->plainTextToken]);
+        // 'token' => $user->createToken('auth')->plainTextToken
+        // $token = $user->createToken('auth')->plainTextToken;
+        // echo $token;
+        return $this->success('注册成功', ['user' => new UserResource($user->refresh())]);
     }
 }

@@ -17,8 +17,8 @@ class CodeService
     protected function code($phone)
     {
         if (Cache::get($phone)) abort(403, '请稍后再试');
-        $code = (string)mt_rand(100000, 999999);
-        Cache::put($phone, $code, config('my.code.out_time'));
+        // $code = (string)mt_rand(100000, 999999);
+        Cache::put($phone, $code = 952700, config('my.code.out_time', 180));
         return $code;
     }
 }
