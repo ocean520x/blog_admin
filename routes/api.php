@@ -16,14 +16,15 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('send/code', [CodeControl::class, 'send']);
+Route::post('send/repassword_code', [CodeControl::class, 'rePasswordSend']);
 
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/register', [AuthController::class, 'register']);
+Route::put('auth/repassword', [AuthController::class, 'rePassword']);
 Route::post('upload/image', [AttachmentController::class, 'image']);
 Route::get('favorite/toggle/{topic}', [FavoriteController::class, 'toggle']);
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('topic', TopicController::class);
-
 Route::get('list/comment/{topic}', [CommentController::class, 'index']);
 Route::post('comment/{topic}', [CommentController::class, 'store']);
 Route::post('reply/comment/{topic}/{comment}', [CommentController::class, 'replyComment']);

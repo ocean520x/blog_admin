@@ -51,4 +51,19 @@ class AuthController extends Controller
         $user->save();
         return $this->success('注册成功', ['user' => new UserResource($user->refresh()), 'token' => $user->createToken('auth')->plainTextToken]);
     }
+
+    public function rePassword(Request $request)
+    {
+        Validator::make($request->input(), [
+            'phone' => ['required', new PhoneRule(), Rule::exists('users')],
+            'password' => ['required', 'max:255', 'confirmed'],
+            'code' => ['required', new CheckCodeRule()]
+        ])->validate();
+        $user = User::wherePhone($request->phone)->firstOrFail();
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return $this->success('重置密码成功', [
+            'user' => new UserResource($user->refresh())
+        ]);
+    }
 }
