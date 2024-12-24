@@ -14,14 +14,20 @@ class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:sanctum'])->except(['index', 'show']);
+        $this->middleware(['auth:sanctum'])->except(['index', 'show','perCategory']);
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $topics = Topic::orderBy('sort')->with(['user', 'category'])->paginate(20);
+        $topics = Topic::orderBy('sort')->with(['user', 'category'])->paginate(8);
+        return TopicResource::collection($topics);
+    }
+
+    public function perCategory($c_id)
+    {
+        $topics = Topic::where('category_id', $c_id)->orderBy('sort')->with(['user', 'category'])->paginate(8);
         return TopicResource::collection($topics);
     }
 

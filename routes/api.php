@@ -24,6 +24,7 @@ Route::put('auth/repassword', [AuthController::class, 'rePassword']);
 Route::post('upload/image', [AttachmentController::class, 'image']);
 Route::get('favorite/toggle/{topic}', [FavoriteController::class, 'toggle']);
 Route::apiResource('category', CategoryController::class);
+Route::get('per_category/{c_id}', [TopicController::class,'perCategory']);
 Route::apiResource('topic', TopicController::class);
 Route::get('list/comment/{topic}', [CommentController::class, 'index']);
 Route::post('comment/{topic}', [CommentController::class, 'store']);
