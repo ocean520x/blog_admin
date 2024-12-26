@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic newQuery()
@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic whereUserId($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $topicUsers
  * @property-read int|null $topic_users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read int|null $comments_count
  * @mixin \Eloquent
  */
 class Topic extends Model

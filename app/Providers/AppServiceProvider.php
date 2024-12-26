@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Config;
 use App\Services\AliYunService;
 use App\Services\CodeService;
 use App\Services\UploadService;
@@ -28,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $config = Config::firstOrNew();
+        if ($data = $config->toArray()) {
+            config(['site' => $data['data']]);
+        } else {
+            config(['site' => null]);
+        }
     }
 }

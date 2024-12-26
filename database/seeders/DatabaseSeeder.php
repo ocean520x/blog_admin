@@ -33,7 +33,8 @@ class DatabaseSeeder extends Seeder
         $user3->save();
         $this->call([
             CategorySeeder::class,
-            TopicSeeder::class
+            TopicSeeder::class,
+            ConfigSeeder::class
         ]);
 
         $cat_arr = ['聚焦热点', '财经信息', '娱乐八卦', '体育天地', '母婴空间', '文化历史', '图书走廊', '地产天地', '汽车世界', '热门电影', '网红明星', '饮食男女'];
