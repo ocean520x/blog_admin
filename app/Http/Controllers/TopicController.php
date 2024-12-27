@@ -21,13 +21,13 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::orderBy('sort')->with(['user', 'category'])->paginate(8);
+        $topics = Topic::orderBy('sort')->with(['user', 'category'])->latest()->paginate(8);
         return TopicResource::collection($topics);
     }
 
     public function perCategory($c_id)
     {
-        $topics = Topic::where('category_id', $c_id)->orderBy('sort')->with(['user', 'category'])->paginate(8);
+        $topics = Topic::where('category_id', $c_id)->orderBy('sort')->with(['user', 'category'])->latest()->paginate(8);
         return TopicResource::collection($topics);
     }
 
