@@ -20,7 +20,7 @@ class AuthController extends Controller
     {
         Validator::make($request->input(), [
             'phone' => ['required', new PhoneRule(), Rule::exists('users')],
-            'captcha_code' => 'required|captcha_api:' . request('captcha_key') . ',math'
+            'captcha_code' => 'sometimes|required|captcha_api:' . request('captcha_key') . ',math'
         ], [
             'captcha_code.captcha_api' => '验证码输入错误'
         ])->validate();

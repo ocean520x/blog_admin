@@ -8,59 +8,22 @@ use App\Models\Config;
 
 class ConfigController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function __construct()
     {
-        //
+        $this->middleware(['auth:sanctum'])->only('update');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function update(UpdateConfigRequest $request, $fieldName)
     {
-        //
+        $config = Config::firstOrNew();
+        $config[$fieldName] = $request->input() + $config[$fieldName] ?: [];
+        $config->save();
+        return $this->success('系统配置修改成功', $config[$fieldName]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreConfigRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Config $config)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Config $config)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateConfigRequest $request, Config $config)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Config $config)
-    {
-        //
+    public function getConfig($fieldName) {
+        $config = Config::firstOrNew();
+        return $this->success(data:$config[$fieldName]);
     }
 }
