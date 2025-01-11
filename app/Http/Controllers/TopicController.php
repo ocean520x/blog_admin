@@ -39,7 +39,7 @@ class TopicController extends Controller
         $topic->fill($request->input());
         $topic->user_id = Auth::id();
         $topic->save();
-        return $this->success(data: new TopicResource($topic->load(['user', 'category'])));
+        return $this->success('发布帖子成功',data: new TopicResource($topic->load(['user', 'category'])));
     }
 
     /**
