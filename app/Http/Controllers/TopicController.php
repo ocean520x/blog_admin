@@ -47,6 +47,7 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
+        $topic->html = $topic->html;
         return $this->success(data: new TopicResource($topic->load(['user', 'category'])));
     }
 

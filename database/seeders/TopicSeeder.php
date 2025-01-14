@@ -13,6 +13,6 @@ class TopicSeeder extends Seeder
      */
     public function run(): void
     {
-        Topic::factory(100)->create();
+        Topic::factory(20)->create();
     }
 }

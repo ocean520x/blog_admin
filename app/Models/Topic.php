@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use ParsedownExtra;
 
 /**
- * 
+ *
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Topic newQuery()
@@ -43,7 +44,10 @@ class Topic extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'content', 'sort', 'is_hot', 'category_id'];
-
+    public function getHtmlAttribute() {
+        $Extra = new ParsedownExtra();
+        return $Extra->text($this->content);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
