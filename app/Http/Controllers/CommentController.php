@@ -23,7 +23,7 @@ class CommentController extends Controller
      */
     public function index(Topic $topic)
     {
-        $comments = $topic->comments()->with(['topic', 'user', 'reply_comments', 'belong_to_comment', 'reply_user'])->get();
+        $comments = $topic->comments()->whereNull('reply_comment_id')->with(['topic','reply_comments'])->get();
         return $this->success(data: CommentResource::collection($comments));
     }
 

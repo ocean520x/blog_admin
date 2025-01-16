@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment newQuery()
@@ -41,7 +41,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = ['content', 'user_id', 'reply_comment_id', 'reply_user_id'];
-
+    protected $with = ['user','reply_user','belong_to_comment'];
     public function topic()
     {
         return $this->belongsTo(Topic::class);
