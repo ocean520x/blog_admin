@@ -32,5 +32,7 @@ Route::post('comment/{topic}', [CommentController::class, 'store']);
 Route::post('reply/comment/{topic}/{comment}', [CommentController::class, 'replyComment']);
 Route::delete('comment/{comment}', [CommentController::class, 'destroy']);
 Route::post('logout', [UserController::class, 'logout']);
+Route::get('get_current_user', [UserController::class, 'get_current_user']);
+Route::get('user/{user}', [UserController::class, 'show']);
 Route::put('config/{fieldName}', [ConfigController::class, 'update']);
 Route::get('get_config/{fieldName}', [ConfigController::class, 'getConfig']);
