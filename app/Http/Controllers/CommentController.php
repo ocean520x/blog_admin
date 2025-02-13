@@ -23,7 +23,7 @@ class CommentController extends Controller
      */
     public function index(Topic $topic)
     {
-        $comments = $topic->comments()->whereNull('reply_comment_id')->with(['topic','reply_comments'])->get();
+        $comments = $topic->comments()->whereNull('reply_comment_id')->with(['topic', 'reply_comments'])->get();
         return $this->success(data: CommentResource::collection($comments));
     }
 
@@ -60,5 +60,13 @@ class CommentController extends Controller
         Gate::authorize('delete', $comment);
         $comment->delete();
         return $this->success('评论删除成功!');
+    }
+
+    public function get_one_user_comments()
+    {
+        $comments = Comment::when(request('u_id'), function ($query) {
+            return $query->where('user_id', request('u_id'));
+        })->latest()->paginate(5);
+        return CommentResource::collection($comments);
     }
 }

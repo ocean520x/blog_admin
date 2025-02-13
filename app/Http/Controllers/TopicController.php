@@ -14,7 +14,7 @@ class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:sanctum'])->except(['index', 'show','perCategory']);
+        $this->middleware(['auth:sanctum'])->except(['index', 'show', 'perCategory']);
     }
     /**
      * Display a listing of the resource.
@@ -39,7 +39,7 @@ class TopicController extends Controller
         $topic->fill($request->input());
         $topic->user_id = Auth::id();
         $topic->save();
-        return $this->success('发布帖子成功',data: new TopicResource($topic->load(['user', 'category'])));
+        return $this->success('发布帖子成功', data: new TopicResource($topic->load(['user', 'category'])));
     }
 
     /**
@@ -69,5 +69,13 @@ class TopicController extends Controller
         Gate::authorize('delete', $topic);
         $topic->delete();
         return $this->success('帖子删除成功!');
+    }
+
+    public function get_one_user_topics()
+    {
+        $topics = Topic::with('user')->when(request('u_id'), function ($query) {
+            return $query->where('user_id', request('u_id'));
+        })->latest()->paginate(5);
+        return TopicResource::collection($topics);
     }
 }
