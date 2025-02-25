@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TopicResource;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -28,5 +29,12 @@ class FavoriteController extends Controller
         return $this->success(data: [
             'is_favorite' => $topic->topicUsers()->wherePivot('user_id', $user->id)->exists()
         ]);
+    }
+
+    public function getOneUserFavoriteTopics()
+    {
+        $user = User::find(request('u_id'));
+        $topics = $user->userTopics()->latest()->paginate(5);
+        return TopicResource::collection($topics);
     }
 }
