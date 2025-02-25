@@ -23,6 +23,7 @@ Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/register', [AuthController::class, 'register']);
 Route::put('auth/repassword', [AuthController::class, 'rePassword']);
 Route::post('upload/image', [AttachmentController::class, 'image']);
+Route::get('is_favorite/{user}/{topic}', [FavoriteController::class, 'is_favorite']);
 Route::get('favorite/toggle/{topic}', [FavoriteController::class, 'toggle']);
 Route::apiResource('category', CategoryController::class);
 Route::get('per_category/{c_id}', [TopicController::class, 'perCategory']);
