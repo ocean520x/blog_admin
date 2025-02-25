@@ -38,5 +38,6 @@ Route::get('get_one_user_comments', [CommentController::class, 'get_one_user_com
 Route::post('logout', [UserController::class, 'logout']);
 Route::get('get_current_user', [UserController::class, 'get_current_user']);
 Route::get('user/{user}', [UserController::class, 'show']);
+Route::put('update_current_user', [UserController::class, 'updateCurrentUser']);
 Route::put('config/{fieldName}', [ConfigController::class, 'update']);
 Route::get('get_config/{fieldName}', [ConfigController::class, 'getConfig']);
