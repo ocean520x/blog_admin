@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable()->comment('邮箱地址');
             $table->string('phone')->unique()->comment('手机号');
             $table->string('avatar')->nullable()->comment('头像');
+            $table->enum('is_freeze', ['yes', 'no'])->default('no')->comment('是否被冻结');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

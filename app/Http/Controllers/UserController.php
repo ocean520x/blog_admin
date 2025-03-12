@@ -6,12 +6,13 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:sanctum'])->only(['logout', 'get_current_user', 'updateCurrentUser', 'getUsers']);
+        $this->middleware(['auth:sanctum'])->only(['logout', 'get_current_user', 'updateCurrentUser', 'getUsers', 'freeze', 'destroy']);
     }
 
     public function logout()
@@ -41,5 +42,22 @@ class UserController extends Controller
     public function getUsers()
     {
         return UserResource::collection(User::latest()->paginate(8));
+    }
+
+    public function destroy(User $user)
+    {
+        Gate::authorize('delete', $user);
+        $user->delete();
+        return $this->success('用户删除成功');
+    }
+
+    public function freeze(User $user)
+    {
+        Gate::authorize('freeze', $user);
+        $data = $user->is_freeze === 'yes' ? 'no' : 'yes';
+        $str = $user->is_freeze === 'yes' ? '用户解冻操作成功' : '用户冻结操作成功';
+        $user->is_freeze = $data;
+        $user->save();
+        return $this->success($str);
     }
 }

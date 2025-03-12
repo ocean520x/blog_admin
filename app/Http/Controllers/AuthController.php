@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Rules\CheckCodeRule;
+use App\Rules\IsFreezeRule;
 use App\Rules\PhoneRule;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         Validator::make($request->input(), [
-            'phone' => ['required', new PhoneRule(), Rule::exists('users')],
+            'phone' => ['required', new PhoneRule(), Rule::exists('users'), new IsFreezeRule()],
             'captcha_code' => 'sometimes|required|captcha_api:' . request('captcha_key') . ',math'
         ], [
             'captcha_code.captcha_api' => '验证码输入错误'

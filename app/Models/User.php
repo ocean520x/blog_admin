@@ -63,6 +63,7 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
+        'is_freeze',
         'avatar'
     ];
 
