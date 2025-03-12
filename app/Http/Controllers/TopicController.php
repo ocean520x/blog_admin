@@ -21,7 +21,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::orderBy('sort')->with(['user', 'category'])->latest()->paginate(8);
+        $topics = Topic::when(request('keywords'), function ($query, $keywords) {
+            $query->where(request('key'), 'like', "%{$keywords}%");
+        })->orderBy('sort')->with(['user', 'category'])->latest()->paginate(8);
         return TopicResource::collection($topics);
     }
 

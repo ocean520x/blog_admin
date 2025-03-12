@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:sanctum'])->only(['logout', 'get_current_user', 'updateCurrentUser', 'getUsers', 'freeze', 'destroy', 'show']);
+        $this->middleware(['auth:sanctum'])->only(['logout', 'get_current_user', 'updateCurrentUser', 'getUsers', 'freeze', 'destroy', 'show', 'updateCurrentUserNick']);
     }
 
     public function logout()
@@ -36,6 +36,14 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $user->fill($request->input())->save();
+        return $this->success('更新成功', new UserResource($user->refresh()));
+    }
+
+    public function updateCurrentUserNick(Request $request)
+    {
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->save();
         return $this->success('更新成功', new UserResource($user->refresh()));
     }
 

@@ -276,6 +276,7 @@ return [
         'winner'                   => 'winner',
         'work'                     => 'work',
         'year'                     => '年',
-        'captcha_code'             => '验证码'
+        'captcha_code'             => '验证码',
+        'icon'                     => '小图标'
     ],
 ];

@@ -41,6 +41,7 @@ Route::post('logout', [UserController::class, 'logout']);
 Route::get('get_current_user', [UserController::class, 'get_current_user']);
 Route::get('user/{user}', [UserController::class, 'show']);
 Route::put('update_current_user', [UserController::class, 'updateCurrentUser']);
+Route::put('update_current_user_nick', [UserController::class, 'updateCurrentUserNick']);
 Route::get('get_users', [UserController::class, 'getUsers']);
 Route::put('user_freeze/{user}', [UserController::class, 'freeze']);
 Route::delete('user_del/{user}', [UserController::class, 'destroy']);
