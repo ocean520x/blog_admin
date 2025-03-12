@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:sanctum'])->only(['logout', 'get_current_user', 'updateCurrentUser', 'getUsers', 'freeze', 'destroy']);
+        $this->middleware(['auth:sanctum'])->only(['logout', 'get_current_user', 'updateCurrentUser', 'getUsers', 'freeze', 'destroy', 'show']);
     }
 
     public function logout()
