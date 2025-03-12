@@ -32,7 +32,8 @@ class CategoryPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user){
+    public function create(User $user)
+    {
         //
     }
 
@@ -55,7 +56,8 @@ class CategoryPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Category $category){
+    public function restore(User $user, Category $category)
+    {
         //
     }
 
@@ -63,6 +65,11 @@ class CategoryPolicy
      * Determine whether the user can permanently delete the model.
      */
     public function forceDelete(User $user, Category $category)
+    {
+        //
+    }
+
+    public function sort(User $user, Category $category)
     {
         //
     }

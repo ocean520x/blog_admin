@@ -27,6 +27,7 @@ Route::get('get_one_user_favorite_topics', [FavoriteController::class, 'getOneUs
 Route::get('is_favorite/{user}/{topic}', [FavoriteController::class, 'is_favorite']);
 Route::get('favorite/toggle/{topic}', [FavoriteController::class, 'toggle']);
 Route::apiResource('category', CategoryController::class);
+Route::post('category/change_sort', [CategoryController::class, 'changeSort']);
 Route::get('per_category/{c_id}', [TopicController::class, 'perCategory']);
 Route::get('get_one_user_topics', [TopicController::class, 'get_one_user_topics']);
 Route::apiResource('topic', TopicController::class);

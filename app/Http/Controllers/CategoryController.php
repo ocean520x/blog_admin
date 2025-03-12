@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
@@ -60,5 +61,16 @@ class CategoryController extends Controller
         Gate::authorize('delete', $category);
         $category->delete();
         return $this->success('帖子大类删除成功!');
+    }
+
+    public function changeSort(Request $request)
+    {
+        Gate::authorize('sort', Category::class);
+        collect($request->categories)->map(function ($category_id, $sort) {
+            $category = Category::find($category_id);
+            $category->sort = $sort;
+            $category->save();
+        });
+        return $this->success('帖子大类排序成功!');
     }
 }
