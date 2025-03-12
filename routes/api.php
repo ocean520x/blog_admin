@@ -36,6 +36,7 @@ Route::post('comment/{topic}', [CommentController::class, 'store']);
 Route::post('reply/comment/{topic}/{comment}', [CommentController::class, 'replyComment']);
 Route::delete('comment/{comment}', [CommentController::class, 'destroy']);
 Route::get('get_one_user_comments', [CommentController::class, 'get_one_user_comments']);
+Route::get('all_comments', [CommentController::class, 'allComments']);
 Route::post('logout', [UserController::class, 'logout']);
 Route::get('get_current_user', [UserController::class, 'get_current_user']);
 Route::get('user/{user}', [UserController::class, 'show']);

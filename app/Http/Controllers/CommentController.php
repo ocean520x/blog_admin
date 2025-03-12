@@ -69,4 +69,9 @@ class CommentController extends Controller
         })->latest()->paginate(5);
         return CommentResource::collection($comments);
     }
+
+    public function allComments()
+    {
+        return CommentResource::collection(Comment::with(['topic'])->paginate(10));
+    }
 }
